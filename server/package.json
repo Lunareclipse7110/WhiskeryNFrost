@@ -1,7 +1,7 @@
 {
-  "name": "frost-and-flour-server",
+  "name": "whiskery-and-frost-server",
   "version": "1.0.0",
-  "description": "Backend API for Frost & Flour Bakery",
+  "description": "Backend API for Whiskery & Frost Bakery",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

@@ -18,7 +18,7 @@ app.use("/api/menu",   menuRoutes);
 app.use("/api/orders", orderRoutes);
 
 // Health check
-app.get("/", (req, res) => res.json({ message: "Frost & Flour API is running 🧁" }));
+app.get("/", (req, res) => res.json({ message: "Whiskery & Frost API is running 🧁" }));
 
 // ── Connect DB then start server ────────────────────────────
 mongoose

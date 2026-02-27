@@ -651,7 +651,7 @@ export default function FrostAndFlour() {
           <div className="success-wrap">
             <div className="success-icon">🎉</div>
             <h2 className="success-title">Order <em>Placed!</em></h2>
-            <p className="success-txt">Your Frost & Flour order is confirmed and being freshly prepared.<br/>Estimated delivery: <strong style={{color:"var(--gold)"}}>30–45 minutes</strong>.</p>
+            <p className="success-txt">Your Whiskery & Frost order is confirmed and being freshly prepared.<br/>Estimated delivery: <strong style={{color:"var(--gold)"}}>30–45 minutes</strong>.</p>
             <div className="success-oid">Order ID: {oid}</div>
             <div className="success-pay-tag"><span style={{fontSize:"18px"}}>{payM==="upi"?"📲":"💵"}</span><span>{payM==="upi"?`Paid via UPI · ${upiId}`:"Cash on Delivery"}</span></div>
             <div className="success-addr">📍 {getAddr()}</div>
@@ -662,7 +662,7 @@ export default function FrostAndFlour() {
 
       {/* ─── NAVBAR ─── */}
       <nav className={`nav ${scrolled?"scrolled":""}`}>
-        <a href="#" className="nav-logo"><span className="nav-logo-main">Frost & Flour</span><span className="nav-logo-sub">Artisan Bakery · Est. 2018</span></a>
+        <a href="#" className="nav-logo"><span className="nav-logo-main">Whiskery & Frost </span><span className="nav-logo-sub">Artisan Bakery · Est. 2018</span></a>
         <ul className="nav-links">
           {[["Menu","#menu"],["Our Story","#our-story"],["Specialties","#specialties"],["Reviews","#reviews"]].map(([l,h])=>(
             <li key={l}><a href={h}>{l}</a></li>
@@ -769,7 +769,7 @@ export default function FrostAndFlour() {
         <div className="story-content">
           <div className="sec-label"><div className="sec-label-line"/><span>Our Story</span></div>
           <h2 className="sec-title light">Born from a Love<br/><em>of the Craft</em></h2>
-          <p className="story-body">Frost & Flour began in a small home kitchen in Bengaluru in 2018, driven by one simple belief — that exceptional baking is a form of storytelling. Today, we bake every item from scratch each morning, using time-honoured techniques and the finest ingredients we can source.</p>
+          <p className="story-body">Whiskery & Frost began in a small home kitchen in Bengaluru in 2018, driven by one simple belief — that exceptional baking is a form of storytelling. Today, we bake every item from scratch each morning, using time-honoured techniques and the finest ingredients we can source.</p>
           <div className="pillars">
             {[
               {icon:"🌾",title:"Finest Ingredients",text:"Stoneground heritage flours, cultured European butters, and seasonal produce."},
@@ -788,7 +788,7 @@ export default function FrostAndFlour() {
         <div className="sec-label"><div className="sec-label-line"/><span>Specialties</span></div>
         <h2 className="sec-title">The House<br/><em>Signatures</em></h2>
         <div className="spec-grid">
-          <div className="sc feat"><div className="sc-glow"/><span className="sc-num">01</span><span className="sc-emoji">🥐</span><div className="sc-title">The Frost & Flour Croissant</div><div className="sc-desc">Our crown jewel. 27 hand-laminated layers, cold-proofed overnight, baked at precise temperature.</div><div className="sc-price">₹149 <span>per piece</span></div></div>
+          <div className="sc feat"><div className="sc-glow"/><span className="sc-num">01</span><span className="sc-emoji">🥐</span><div className="sc-title">The Whiskery & Frost Croissant</div><div className="sc-desc">Our crown jewel. 27 hand-laminated layers, cold-proofed overnight, baked at precise temperature.</div><div className="sc-price">₹149 <span>per piece</span></div></div>
           <div className="sc"><div className="sc-glow"/><span className="sc-num">02</span><span className="sc-emoji">🍞</span><div className="sc-title">Heritage Sourdough</div><div className="sc-desc">72-hour cold ferment using our 6-year-old starter. Complex, tangy, deeply satisfying.</div><div className="sc-price">₹349</div></div>
           <div className="sc"><div className="sc-glow"/><span className="sc-num">03</span><span className="sc-emoji">🍓</span><div className="sc-title">Strawberry Tart</div><div className="sc-desc">Crème pâtissière on butter shortcrust, finished with glazed seasonal berries.</div><div className="sc-price">₹329</div></div>
           <div className="sc"><div className="sc-glow"/><span className="sc-num">04</span><span className="sc-emoji">☕</span><div className="sc-title">Salted Caramel Latte</div><div className="sc-desc">House-made caramel, double espresso, oat milk microfoam. The perfect companion.</div><div className="sc-price">₹249</div></div>
@@ -828,7 +828,7 @@ export default function FrostAndFlour() {
       {/* ─── FOOTER ─── */}
       <footer className="footer">
         <div className="footer-top">
-          <div><span className="f-brand">Frost & Flour</span><span className="f-tag">Artisan Bakery · Est. 2018</span><p className="f-desc">A Bengaluru neighbourhood bakery dedicated to the art of honest, exceptional baking. Every item crafted by hand, every morning, without compromise.</p><div className="f-socials">{["fb","ig","yt","tw"].map(s=><div className="f-soc" key={s}>{s}</div>)}</div></div>
+          <div><span className="f-brand">Whiskery & Frost</span><span className="f-tag">Artisan Bakery · Est. 2018</span><p className="f-desc">A Bengaluru neighbourhood bakery dedicated to the art of honest, exceptional baking. Every item crafted by hand, every morning, without compromise.</p><div className="f-socials">{["fb","ig","yt","tw"].map(s=><div className="f-soc" key={s}>{s}</div>)}</div></div>
           <div>
             <div className="f-col-title">Explore</div>
             <ul className="f-links">
@@ -837,7 +837,7 @@ export default function FrostAndFlour() {
               <li><a href="#specialties">Specialties</a></li>
               <li><a href="#reviews">Reviews</a></li>
               <li><a onClick={()=>toast_("✦ Gift cards coming soon!")}>Gift Cards</a></li>
-              <li><a onClick={()=>toast_("✦ Catering: hello@frostandflour.in")}>Catering</a></li>
+              <li><a onClick={()=>toast_("✦ Catering: hello@whiskeryandfrost.in")}>Catering</a></li>
             </ul>
           </div>
           <div>
@@ -856,11 +856,11 @@ export default function FrostAndFlour() {
             <div className="f-contact-item"><span className="f-c-icon">📍</span><span className="f-c-txt">HQTC, Electronic City Phase 1,<br/>Bengaluru – 560006, Karnataka</span></div>
             <div className="f-contact-item"><span className="f-c-icon">🕖</span><span className="f-c-txt">Tue – Sun: 7am – 6pm<br/>Monday: Closed (Baking Day)</span></div>
             <div className="f-contact-item"><span className="f-c-icon">📞</span><span className="f-c-txt">+91 98456 72310</span></div>
-            <div className="f-contact-item"><span className="f-c-icon">✉️</span><span className="f-c-txt">hello@frostandflour.in</span></div>
+            <div className="f-contact-item"><span className="f-c-icon">✉️</span><span className="f-c-txt">hello@whiskeryandfrost.in</span></div>
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="f-copy">© 2025 Frost & Flour. All rights reserved. Bengaluru, India.</span>
+          <span className="f-copy">© 2025 Whiskery & Frost. All rights reserved. Bengaluru, India.</span>
           <div className="f-bot-links">{["Privacy","Terms","Accessibility"].map(l=><a key={l} href="#">{l}</a>)}</div>
         </div>
       </footer>

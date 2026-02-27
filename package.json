@@ -1,8 +1,8 @@
 {
-  "name": "frost-and-flour",
+  "name": "whiskery-and-frost",
   "private": true,
   "version": "1.0.0",
-  "description": "Frost & Flour — Artisan Bakery website built with React and Vite",
+  "description": "Whiskery & Frost — Artisan Bakery website built with React and Vite",
   "type": "module",
   "scripts": {
     "dev": "vite",
