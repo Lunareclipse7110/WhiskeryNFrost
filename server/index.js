@@ -2,9 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-
 const menuRoutes  = require("./routes/menu");
 const orderRoutes = require("./routes/orders");
+const recRoutes = require("./routes/recommendations");
+
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,7 @@ app.use(express.json());
 // ── Routes ──────────────────────────────────────────────────
 app.use("/api/menu",   menuRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/recommendations", recRoutes);
 
 // Health check
 app.get("/", (req, res) => res.json({ message: "Whiskery & Frost API is running 🧁" }));

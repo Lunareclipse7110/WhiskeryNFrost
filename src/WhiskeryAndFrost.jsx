@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 // ── API base URL — change this when you deploy ──────────────
-const API = "http://localhost:5000/api";
+const API = "https://whiskerynfrost.onrender.com";
 
 const STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -322,6 +322,23 @@ const STYLES = `
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .cart-drawer { width: 100%; } .frow { grid-template-columns: 1fr; }
   }
+  /* ── AI RECOMMENDATIONS ─────────────────────────────────── */
+  .rec-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(201,169,110,0.15); }
+  .rec-heading { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .rec-heading::before { content: '✦ AI Picks for You'; }
+  .rec-list { display: flex; flex-direction: column; gap: 8px; }
+  .rec-card { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.25s; cursor: pointer; }
+  .rec-card:hover { border-color: rgba(201,169,110,0.3); background: rgba(201,169,110,0.05); }
+  .rec-emoji { font-size: 22px; width: 32px; text-align: center; flex-shrink: 0; }
+  .rec-info { flex: 1; min-width: 0; }
+  .rec-name { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rec-reason { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: var(--text-muted); margin-top: 2px; }
+  .rec-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .rec-price { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold); }
+  .rec-add { background: none; border: 1px solid rgba(201,169,110,0.3); color: var(--gold); width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; line-height: 1; transition: all 0.2s; padding: 0; }
+  .rec-add:hover { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+  .rec-loading { display: flex; align-items: center; gap: 10px; padding: 10px 0; color: var(--text-muted); font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; }
+  .rec-spin { width: 12px; height: 12px; border: 1px solid rgba(201,169,110,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
 `;
 
 const SAVED_ADDRS = [
@@ -352,7 +369,10 @@ export default function FrostAndFlour() {
   const [step, setStep]           = useState(0);
   const [toast, setToast]         = useState({ show: false, msg: "" });
   const [addedIds, setAddedIds]   = useState({});
-  const [email, setEmail]         = useState("");
+  const [email, setEmail] = useState("");
+  // ── AI Recommendations ────────────────────────────────────
+  const [recs, setRecs]           = useState([]);
+  const [recsLoading, setRecsLoading] = useState(false);
 
   // ── Address ───────────────────────────────────────────────
   const [savedSel, setSavedSel]   = useState(null);
@@ -368,6 +388,22 @@ export default function FrostAndFlour() {
   const [oid, setOid]             = useState("");
 
   const menuRef = useRef(null);
+
+  // ── Fetch AI recommendations ──────────────────────────────
+  const fetchRecs = async (cartItems) => {
+    if (!cartItems || cartItems.length === 0) { setRecs([]); return; }
+    setRecsLoading(true);
+    try {
+      const res  = await fetch(`${API}/recommendations`, {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ cartItems, currentFilter: filter }),
+      });
+      const json = await res.json();
+      if (json.success) setRecs(json.data);
+    } catch { setRecs([]); }
+    finally { setRecsLoading(false); }
+  };
 
   // ── Fetch menu from API on mount ─────────────────────────
   const fetchMenu = async () => {
@@ -392,6 +428,14 @@ export default function FrostAndFlour() {
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
+  useEffect(() => {
+  if (open && step === 0 && cart.length > 0) {
+    fetchRecs(cart);
+  }
+  if (!open) {
+    setRecs([]);   // clear old recs when drawer closes so next open feels fresh
+  }
+}, [open]);
 
   const cats  = ["All", ...Array.from(new Set(menuItems.map(i => i.category)))];
   const shown = filter === "All" ? menuItems : menuItems.filter(i => i.category === filter);
@@ -531,7 +575,7 @@ export default function FrostAndFlour() {
               </div>
             ) : (
               <div className="cart-body">
-                {cart.map(item=>(
+               {cart.map(item=>(
                   <div className="ci" key={item._id}>
                     <div className="ci-emoji">{item.emoji}</div>
                     <div className="ci-info">
@@ -545,6 +589,37 @@ export default function FrostAndFlour() {
                     </div>
                   </div>
                 ))}
+                {/* ── AI RECOMMENDATIONS ── */}
+                {(recsLoading || recs.length > 0) && (
+                  <div className="rec-section">
+                    <div className="rec-heading"/>
+                    {recsLoading ? (
+                      <div className="rec-loading">
+                        <div className="rec-spin"/>
+                        Finding perfect pairings...
+                      </div>
+                    ) : (
+                      <div className="rec-list">
+                        {recs.map(item => (
+                          <div className="rec-card" key={item._id} onClick={() => addToCart(item)}>
+                            <span className="rec-emoji">{item.emoji}</span>
+                            <div className="rec-info">
+                              <div className="rec-name">{item.name}</div>
+                              <div className="rec-reason">{item.aiReason}</div>
+                            </div>
+                            <div className="rec-right">
+                              <span className="rec-price">₹{item.price}</span>
+                              <button
+                                className="rec-add"
+                                onClick={e => { e.stopPropagation(); addToCart(item); }}
+                              >+</button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
             {cart.length>0 && (
