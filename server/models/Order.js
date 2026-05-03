@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema(
     orderId: {
       type: String,
       unique: true,
-      default: () => "FF-" + Math.random().toString(36).substring(2, 7).toUpperCase(),
+      default: () => "ff-" + Math.random().toString(16).substring(2, 7).toUpperCase(),
     },
     items:         { type: [orderItemSchema], required: true },
     subtotal:      { type: Number, required: true },
