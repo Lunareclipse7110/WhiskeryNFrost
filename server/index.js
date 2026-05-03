@@ -33,6 +33,14 @@ mongoose
   .then(() => {
     console.log("✅ Connected to MongoDB");
     app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+    
+    setInterval(async () => {
+      try {
+        await fetch(`https://whiskerynfrost.onrender.com`);
+        console.log("Keep-alive ping sent");
+      } catch {}
+    }, 14 * 60 * 1000);
+    
   })
   .catch((err) => {
     console.error("❌ MongoDB connection failed:", err.message);
