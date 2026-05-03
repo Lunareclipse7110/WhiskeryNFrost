@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 // ── API base URL — change this when you deploy ──────────────
-const API = "https://whiskerynfrost.onrender.com";
+const API = "https://whiskerynfrost.onrender.com/api";
 
 const STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
