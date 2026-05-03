@@ -11,12 +11,7 @@ const app  = express();
 const PORT = process.env.PORT || 5000;
 
 // ── Middleware ──────────────────────────────────────────────
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://whiskery-n-frost.vercel.app"   // your vercel URL (add after Step 5)
-  ]
-}));
+app.use(cors());
 
 // Vite dev server
 app.use(express.json());
